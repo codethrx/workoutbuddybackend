@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 4000;
 //initialize express
 const app = express();
 //middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   console.log(`Path-${req.path}`);
   console.log(`Method-${req.method}`);
