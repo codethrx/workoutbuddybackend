@@ -14,7 +14,16 @@ app.use((req, res, next) => {
 });
 //react to requests (routes)
 app.use("/api/workouts", require("./routes/workouts"));
-//Listen to requests
-app.listen(PORT, () => {
-  console.log(`Server listening to requests on port#${PORT}`);
-});
+//Listen to requests and connecting to mongodb
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(
+        `Connected to DB. Server listening to requests on port#${PORT}`
+      );
+    });
+  })
+  .catch((e) => {
+    console.log(e);
+  });
